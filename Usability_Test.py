@@ -111,47 +111,45 @@ def main():
         # For this template, we assume there's only one task, in project 3, we will have to include the actual tasks
         # Just placeholders until Project #3
         selected_task = st.selectbox("Select Task", [
-            "Task 1: Compare two iPhone Models",
-            "Task 2: Find and compare MacBook options",
-            "Task 3: Locate AppleCare details for iPhones",
-            "Task 4: Find product details for AirPods",
+            "Task 1: Complete a full daily log",
+            "Task 2: Analyze weekly performance",
+            "Task 3: Plan a custom strength training session"
         ])
-        compare_result = ""
-        compare_macbook = ""
-        apple_care_details = ""
-        airpod_details = ""
-        if selected_task == "Task 1: Compare two iPhone Models":
-            st.write("Start timer before beginning the task")
-            st.write("""
-            Visit [apple.com/iphone](https://apple.com/iPhone/) and compare two iPhone Models.
-              Describe a difference that surprised you the most (camera, battery life, processor,...).
-              """)
-            compare_result = st.text_area("Difference between iPhones: ")
-        elif selected_task == "Task 2: Find and compare MacBook options":
-            st.write("Start timer before beginning the task")
-            st.write("""
-            Visit [apple.com/macbook](https://apple.com/macbook/) and compare a MacBook pro to a Macbook Air.
-            What is the difference between a MacBook Pro and Macbook Air?
-            """)
-            compare_macbook = st.text_area("Compare MacBooks")
 
-        elif selected_task == "Task 3: Locate AppleCare details for iPhones":
-            st.write("Start timer before beginning the task")
-            st.write("""
-            Locate AppleCare on [apple.com](https://apple.com) and research coverage options for the new iPhone.
-            What's the monthly subscription or one-time payment?
-            """)
-            apple_care_details = st.text_area("Apple Care Details:")
+        daily_log_result = ""
+        progress_analysis = ""
+        workout_plan_details = ""
 
-        elif selected_task == "Task 4: Find product details for AirPods":
-            st.write("Start timer before beginning the task")
+        if selected_task == "Task 1: Complete a full daily log":
+            st.write("Start the timer before beginning the task.")
             st.write("""
-            Visit [apple.com/airpods](https://apple.com/airpods-pro) and find the battery life of the new AirPod Pros.
-            Whats the battery life of the new AirPod Pro?
+                You’ve just completed your day. Log:
+                - 2,200 calories
+                - 90oz of water
+                - Weight: 180 lbs
+                - Squat: 250lbs 5 Sets of 3
+                - 4.2 km run in 30 minutes
             """)
-            airpod_details = st.text_area("AirPod Battery Life:")
-            
-            
+            daily_log_result = st.text_area("Describe how you logged each part of the day:")
+
+        elif selected_task == "Task 2: Analyze weekly performance":
+            st.write("Start the timer before beginning the task.")
+            st.write("""
+                Review your calorie and weight charts over the past week.
+                Are you making progress? Has your weight and intake decreased?
+            """)
+            progress_analysis = st.text_area("Describe what you observed in the charts:")
+
+        elif selected_task == "Task 3: Plan a custom strength training session":
+            st.write("Start the timer before beginning the task.")
+            st.write("""
+                You’re planning for tomorrow:
+                - Focus on upper body
+                - Choose 1 chest and 1 shoulder exercise
+                - Save the exercises as a custom workout
+            """)
+            workout_plan_details = st.text_area("Describe how you planned and saved the workout:")
+
             
             
         st.write("Task Description: Perform the example task in our system")
@@ -178,10 +176,9 @@ def main():
                 "success": success,
                 "duration_seconds": duration_val if duration_val else "",
                 "notes": notes,
-                "compare_result": compare_result,
-                "compare_macbook": compare_macbook,
-                "apple_care_details": apple_care_details,
-                "airpod_details": airpod_details
+                "daily_log_result": daily_log_result,
+                "progress_analysis": progress_analysis,
+                "workout_plan_details": workout_plan_details
             }
             save_to_csv(data_dict, TASK_CSV)
 
@@ -197,10 +194,10 @@ def main():
         with st.form("exit_form"):
             # TODO: likert scale or other way to have an exit questionnaire
             #satisfaction slider (Contains: Statisfaction/Difficulty sliders)
-            satisfaction = st.slider("Leave a rating on how satisfied you were with the usability test.",1,5)
+            satisfaction = st.slider("Leave a rating on how satisfied you were with the Health Tracker App.",1,5)
             full_stars = "⭐️" * satisfaction
             st.write(f"Your satisfaction rating: {full_stars}")
-            difficulty = st.slider("Rate the difficulty level of this usability test (1 = Very Easy, 5 = Very Hard).",1,5)
+            difficulty = st.slider("Rate the difficulty level of this Application (1 = Very Easy, 5 = Very Hard).",1,5)
             difficulty_names={
                 1: "Very Easy",
                 2: "Easy",
@@ -211,8 +208,8 @@ def main():
             st.write(f"Difficulty Selected: {difficulty_names[difficulty]}")
 
             #Feedback (open text)
-            open_feedback = st.text_area("Leave a feedback about this usability test (Ways we can improve).")
-            recomendation = st.text_area("Would you recommend this usability test?")
+            open_feedback = st.text_area("Leave a feedback on the Health Tracker App (Ways we can improve).")
+            recomendation = st.text_area("Would you recommend this Application (if yes, who / if no,why)?")
 
             submitted_exit = st.form_submit_button("Submit Exit Questionnaire")
             if submitted_exit:
