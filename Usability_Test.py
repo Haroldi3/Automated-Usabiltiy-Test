@@ -107,6 +107,7 @@ def main():
         st.header("Task Page")
 
         st.write("Please select a task and record your experience completing it.")
+        "🔗 **[Open the Health Tracker App](https://healthtrackerapppy-asccen3mlugqdpgd7pqj5s.streamlit.app)** to perform your task before logging your experience below.")
 
         # For this template, we assume there's only one task, in project 3, we will have to include the actual tasks
         # Just placeholders until Project #3
